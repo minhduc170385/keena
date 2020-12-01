@@ -1,0 +1,97 @@
+<div>    
+    <h2 *ngIf="isAddMode" class="title">ADD NEW DOCTOR</h2>
+    <h2 *ngIf="!isAddMode" class="title">EDIT DOCTOR</h2>
+
+</div>
+<div class="container">
+    <form [formGroup]="doctorForm">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="firstName">First Name</label>
+                <input
+                    formControlName="firstName"
+                     type="text" 
+                     class="form-control" 
+                     id="firstName"                      
+                     placeholder="First Name" />
+                     <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger">
+                        <div *ngIf="firstName.errors.required">First Name is required</div>
+                        <div *ngIf="firstName.errors.minlength">First Name min length {{firstName.errors.minlength.requiredLength}}</div>                        
+                    </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastName">Last Name</label>
+                <input type="text" 
+                    class="form-control" 
+                    id="lastName" 
+                    formControlName="lastName"
+                    placeholder="Last Name">
+                    <div *ngIf="lastName.touched && lastName.invalid" class="alert alert-danger">
+                        <div *ngIf="lastName.errors.required">Last Name is required</div>
+                        <div *ngIf="lastName.errors.minlength">Last Name min length {{lastName.errors.minlength.requiredLength}}</div>                        
+                    </div>
+            </div>           
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">                
+                    <label for="gender">Gender</label>
+                    <select class="form-control" formControlName="gender"  (change)="changeGender($event)">
+                        <option value="" selected disabled>Choose...</option>
+                        <option value="true" >Male</option>
+                        <option value="false">Female</option>
+                    </select>
+                
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input 
+                    formControlName="email"
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    placeholder="abc@gmail.com" />
+
+                    <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                        <div *ngIf="email.errors.required">Email Address is required</div>
+                        <div *ngIf="email.errors.minlength">Email Address min length {{email.errors.minlength.requiredLength}}</div>
+                        <div *ngIf="email.errors.email">Please enter a valid email</div>                        
+                    </div>    
+
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phone">Phone</label>
+                <input 
+                    type="tel" 
+                    class="form-control" 
+                    id="phone" 
+                    formControlName="phone"
+                    placeholder="2067474685" />
+                
+                <div *ngIf="phone.touched && phone.invalid" class="alert alert-danger">
+                    <div *ngIf="phone.errors.required">Phone is required</div>
+                    <div *ngIf="phone.errors.pattern">Phone format not correct</div>                    
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="1234 Main St" formControlName="address">
+        </div>
+
+        <button type="button"  class="btn btn-primary pull-right" style="margin-left: 20px;" (click) ="onCancel()" >Cancel</button>
+        <button type="submit"  [disabled]="!doctorForm.valid" class="btn btn-primary pull-right"  (click)="onSubmit()">Save</button>
+        
+
+        
+        
+        
+
+
+    </form>
+
+
